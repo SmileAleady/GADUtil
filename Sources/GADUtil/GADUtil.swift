@@ -218,7 +218,7 @@ extension GADUtil {
                 }
                 ad.clickHandler = { [weak self] in
                     self?.add(.click)
-                    NSLog("[AD] [Click] position: \(ad.position.rawValue), scene: \(ad.p.rawValue), id: \(ad.model?.theAdID ?? "nil")")
+                    NSLog("[AD] [Click] position: \(ad.position.rawValue), scene: \(ad.p.rawValue), id: \(ad.model?.theAdID ?? "invalid id")")
                     NotificationCenter.default.post(name: .adClick, object: ad)
                 }
                 ad.closeHandler = { [weak self] in
@@ -260,7 +260,7 @@ extension GADUtil {
                 }
                 ad.clickHandler = {
                     self.add(.click)
-                    NSLog("[AD] [Click] position: \(ad.position.rawValue), scene: \(ad.p.rawValue), id: \(ad.model?.theAdID ?? "nil")")
+                    NSLog("[AD] [Click] position: \(ad.position.rawValue), scene: \(ad.p.rawValue), id: \(ad.model?.theAdID ?? "invalid id")")
                     NotificationCenter.default.post(name: .adClick, object: ad)
                 }
                 completion?(ad)
