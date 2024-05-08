@@ -218,6 +218,8 @@ extension GADUtil {
                 }
                 ad.clickHandler = { [weak self] in
                     self?.add(.click)
+                    NSLog("[AD] [Click] position: \(ad.position.rawValue), scene: \(ad.p.rawValue)")
+                    NotificationCenter.default.post(name: .adClick, object: ad)
                 }
                 ad.closeHandler = { [weak self] in
                     self?.disappear(position)
@@ -258,6 +260,8 @@ extension GADUtil {
                 }
                 ad.clickHandler = {
                     self.add(.click)
+                    NSLog("[AD] [Click] position: \(ad.position.rawValue), scene: \(ad.p.rawValue)")
+                    NotificationCenter.default.post(name: .adClick, object: ad)
                 }
                 completion?(ad)
             } else {
@@ -892,6 +896,7 @@ extension Notification.Name {
     public static let adPaid = Notification.Name(rawValue: "ad.paid")
     public static let adImpression = Notification.Name(rawValue: "ad.impression")
     public static let adPresent = Notification.Name(rawValue: "ad.present")
+    public static let adClick = Notification.Name(rawValue: "ad.adClick")
 }
 
 extension String {
