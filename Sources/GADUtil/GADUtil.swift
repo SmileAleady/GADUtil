@@ -218,6 +218,8 @@ extension GADUtil {
                 }
                 ad.clickHandler = { [weak self] in
                     self?.add(.click)
+                    //这里scene要重新赋值,因为从数组中取出只是按position来取的,scene有多个
+                    ad.p = p
                     NSLog("[AD] [Click] position: \(ad.position.rawValue), scene: \(ad.p.rawValue), id: \(ad.model?.theAdID ?? "invalid id")")
                     NotificationCenter.default.post(name: .adClick, object: ad)
                 }
@@ -260,6 +262,8 @@ extension GADUtil {
                 }
                 ad.clickHandler = {
                     self.add(.click)
+                    //这里scene要重新赋值,因为从数组中取出只是按position来取的,scene有多个
+                    ad.p = p
                     NSLog("[AD] [Click] position: \(ad.position.rawValue), scene: \(ad.p.rawValue), id: \(ad.model?.theAdID ?? "invalid id")")
                     NotificationCenter.default.post(name: .adClick, object: ad)
                 }
