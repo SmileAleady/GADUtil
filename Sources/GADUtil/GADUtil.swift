@@ -550,6 +550,7 @@ extension GADLoadModel {
             return
         }
         ad.position = position
+        NotificationCenter.default.post(name: .adRequest, object: ad) //请求ad
         ad.loadAd { [weak ad] isSuccess, error in
             guard let ad = ad else { return }
             /// 刪除loading 中的ad
@@ -901,6 +902,7 @@ extension Notification.Name {
     public static let adImpression = Notification.Name(rawValue: "ad.impression")
     public static let adPresent = Notification.Name(rawValue: "ad.present")
     public static let adClick = Notification.Name(rawValue: "ad.adClick")
+    public static let adRequest = Notification.Name(rawValue: "ad.adRequest")//请求广告时候
 }
 
 extension String {
