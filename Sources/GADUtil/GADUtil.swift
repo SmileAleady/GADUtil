@@ -125,6 +125,16 @@ extension GADUtil {
         }
     }
     
+    ///提供给外部配置远程config
+    public func setRemoteConfig(_ data:Data) {
+        do {
+            config = try JSONDecoder().decode(GADConfig.self, from: data)
+            NSLog("[Config] remote ad config success.")
+        } catch let error {
+            NSLog("[Config] remote ad config fail.\(error.localizedDescription)")
+        }
+    }
+    
     /// 限制
     fileprivate func add(_ status: GADLimit.Status) {
         if status == .show {
