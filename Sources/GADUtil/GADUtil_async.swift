@@ -107,11 +107,11 @@ extension GADLoadModel {
         }
         var ad: GADBaseModel? = nil
         if position.isNative {
-            ad = GADNativeModel(model: array[index], position: position, p: p)
+            ad = GADNativeModel(model: array[index], position: position, p: p, poolType: poolType)
         } else if position.isInterstital {
-            ad = GADInterstitialModel(model: array[index], position: position, p: p)
+            ad = GADInterstitialModel(model: array[index], position: position, p: p, poolType: poolType)
         } else if position.isOpen {
-            ad = GADOpenModel(model: array[index], position: position, p: p)
+            ad = GADOpenModel(model: array[index], position: position, p: p, poolType: poolType)
         }
         guard let ad = ad  else {
             NSLog("[AD] (\(position.rawValue)) 广告位错误.")

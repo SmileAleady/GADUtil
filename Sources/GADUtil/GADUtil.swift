@@ -1032,17 +1032,17 @@ class  RequestIP {
     }
 }
 
-//public class SubscriptionToken {
-//    var cancelable: AnyCancellable?
-//    func unseal() { cancelable = nil }
-//}
+public class SubscriptionToken {
+    var cancelable: AnyCancellable?
+    func unseal() { cancelable = nil }
+}
 
-//extension AnyCancellable {
-//    /// 需要 出现 unseal 方法释放 cancelable
-//    func seal(in token: SubscriptionToken) {
-//        token.cancelable = self
-//    }
-//}
+extension AnyCancellable {
+    /// 需要 出现 unseal 方法释放 cancelable
+    func seal(in token: SubscriptionToken) {
+        token.cancelable = self
+    }
+}
 
 extension GADAdValuePrecision {
     var type: String {
