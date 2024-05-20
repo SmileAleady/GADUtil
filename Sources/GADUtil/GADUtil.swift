@@ -279,9 +279,15 @@ extension GADUtil {
         } else if position.isNative {
             //            if let ad = loadAD?.loadedArray.first as? GADNativeModel, !isGADLimited {
             ///根据poolType判断当前数组里是否有对应缓存池的广告
-            let resultAd = loadAD?.loadedArray.filter {
-                $0.poolType.rawValue == poolType.rawValue
-            }.first
+//            let resultAd = loadAD?.loadedArray.filter {
+//                $0.poolType.rawValue == poolType.rawValue
+//            }.first
+            
+            let resultAd = loadAD?.filterCurrentArrayWithPoolType(poolType: poolType.rawValue).first
+            
+//            if let currentShowAd = resultAd {
+//                NSLog("[AD] (\(currentShowAd.position.rawValue))(\(currentShowAd.poolType.rawValue)) show")
+//            }
             
             if let ad = resultAd as? GADNativeModel, !isGADLimited {
                 /// 预加载回来数据 当时已经有显示数据了
@@ -547,7 +553,6 @@ class GADLoadModel: NSObject {
             }
         }
         return isExisted
-        
     }
     // 是否已有加载成功的数据
     var isPreloadedAD: Bool {
@@ -560,7 +565,6 @@ class GADLoadModel: NSObject {
             if poolType.rawValue == adBaseModel.poolType.rawValue {
                 isExisted = true
             }
-            
         }
         return isExisted
     }
@@ -574,7 +578,18 @@ class GADLoadModel: NSObject {
     var displayArray: [GADBaseModel] = []
     
     var isDisplay: Bool {
-        return displayArray.count > 0
+//        return displayArray.count > 0
+        
+        ///==========
+        ///根据poolType判断当前数组里是否有对应缓存池的广告
+        var isExisted = false
+        displayArray.forEach { adBaseModel in
+            if poolType.rawValue == adBaseModel.poolType.rawValue {
+                isExisted = true
+            }
+        }
+        return isExisted
+        
     }
     
     /// 该广告位显示广告時間 每次显示更新时间
