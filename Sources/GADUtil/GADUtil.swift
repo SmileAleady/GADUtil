@@ -210,7 +210,7 @@ extension GADUtil {
             $0.position.rawValue == position.rawValue
         }.first
         
-        NSLog("[AD] (\(position.rawValue))")
+//        NSLog("[AD] (\(position.rawValue))")
         if position.isOpen || position.isInterstital {
             /// 有廣告
             //            if let ad = loadAD?.loadedArray.first as? GADFullScreenModel, !isGADLimited {
