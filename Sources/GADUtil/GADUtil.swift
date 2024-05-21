@@ -223,7 +223,7 @@ extension GADUtil {
             let resultAd = loadAD?.filterCurrentArrayWithPoolType(poolType: poolType.rawValue).first
             
             if let currentShowAd = resultAd {
-                NSLog("[AD] (\(currentShowAd.position.rawValue))(\(currentShowAd.poolType.rawValue)) show")
+                NSLog("[AD] (\(currentShowAd.position.rawValue))(\(currentShowAd.poolType.rawValue)) Show")
             }
            
             if let ad = resultAd as? GADFullScreenModel, !isGADLimited {
@@ -292,7 +292,8 @@ extension GADUtil {
             if let ad = resultAd as? GADNativeModel, !isGADLimited {
                 /// 预加载回来数据 当时已经有显示数据了
                 if loadAD?.isDisplay == true {
-                    NSLog("[ad] (\(position.rawValue)) (\(poolType.rawValue)) ad is being display.")
+//                    NSLog("[ad] (\(position.rawValue)) (\(poolType.rawValue)) ad is being display.")
+                    NSLog("[ad] (\(position.rawValue)) ad is being display.")
                     return
                 }
                 ad.nativeAd?.unregisterAdView()
@@ -548,7 +549,8 @@ class GADLoadModel: NSObject {
         ///根据poolType判断当前数组里是否有对应缓存池的广告
         var isExisted = false
         loadingArray.forEach { adBaseModel in
-            if poolType.rawValue == adBaseModel.poolType.rawValue {
+            if position.rawValue == adBaseModel.position.rawValue &&
+                poolType.rawValue == adBaseModel.poolType.rawValue {
                 isExisted = true
             }
         }
@@ -562,7 +564,8 @@ class GADLoadModel: NSObject {
         ///根据poolType判断当前数组里是否有对应缓存池的广告
         var isExisted = false
         loadedArray.forEach { adBaseModel in
-            if poolType.rawValue == adBaseModel.poolType.rawValue {
+            if position.rawValue == adBaseModel.position.rawValue &&
+                poolType.rawValue == adBaseModel.poolType.rawValue {
                 isExisted = true
             }
         }
@@ -578,17 +581,17 @@ class GADLoadModel: NSObject {
     var displayArray: [GADBaseModel] = []
     
     var isDisplay: Bool {
-//        return displayArray.count > 0
+        return displayArray.count > 0
         
         ///==========
         ///根据poolType判断当前数组里是否有对应缓存池的广告
-        var isExisted = false
-        displayArray.forEach { adBaseModel in
-            if poolType.rawValue == adBaseModel.poolType.rawValue {
-                isExisted = true
-            }
-        }
-        return isExisted
+//        var isExisted = false
+//        displayArray.forEach { adBaseModel in
+//            if poolType.rawValue == adBaseModel.poolType.rawValue {
+//                isExisted = true
+//            }
+//        }
+//        return isExisted
         
     }
     
@@ -672,7 +675,8 @@ extension GADLoadModel {
             self.loadingArray = self.loadingArray.filter({ loadingAd in
                 //                return ad.id != loadingAd.id
                 //===============
-                return ad.id != loadingAd.id && ad.poolType.rawValue != loadingAd.poolType.rawValue
+//                return ad.id != loadingAd.id && ad.poolType.rawValue != loadingAd.poolType.rawValue
+                return ad.id != loadingAd.id || ad.poolType.rawValue != loadingAd.poolType.rawValue || ad.position.rawValue != loadingAd.position.rawValue
             })
             
             /// 成功
@@ -719,12 +723,13 @@ extension GADLoadModel {
             }
 //        }
         
+        
         return displayArray
     }
     
     fileprivate func display() {
         
-        //        self.displayArray = self.loadedArray
+       //        self.displayArray = self.loadedArray
         //        self.loadedArray = []
         
         //==========
